@@ -12,6 +12,7 @@ v-for="handicap in handicaps"
 
   ></display-handicaps>
     <p v-if="updateSuccess"> Handicaps updated successfully</p>
+    <p v-if="updateFailed"> Handicaps NOT updated please try again later!</p>
 
 </div>
 </template>
@@ -23,7 +24,8 @@ export default {
     data: function() {
         return {
             handicaps: [],
-            updateSuccess: false
+            updateSuccess: false,
+            updateFailed: false
         };
     },
   components: {
@@ -60,14 +62,12 @@ export default {
                 score: updateHandicap.score,
 
             })
-                .then( response=> {
+                .then( response => {
                     if( response.status == 200 ) {
-
                        this.handicapUpdated();
-
                     }
-                })
-                .catch(error => {
+            }).catch(error => {
+                this.updateFail();
                     console.log(error);
                 })
         },
@@ -78,6 +78,14 @@ export default {
                 setTimeout(() => {
                     this.updateSuccess = false;
                 }, 1000 );
+        },
+        updateFail(){
+            this.updateFailed = true;
+            setTimeout(() => {
+                this.updateFailed = false;
+            }, 1000 );
+
+
         }
 
 

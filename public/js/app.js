@@ -1916,12 +1916,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       handicaps: [],
-      updateSuccess: false
+      updateSuccess: false,
+      updateFailed: false
     };
   },
   components: {
@@ -1955,11 +1957,15 @@ __webpack_require__.r(__webpack_exports__);
       var updateHandicap = this.handicaps.find(function (handicaps) {
         return handicaps.id === id;
       });
-      axios.put('api/handicaps/' + updateHandicap.id, {
+      axios.put('api/handicap/' + updateHandicap.id, {
         score: updateHandicap.score
       }).then(function (response) {
         if (response.status == 200) {
           _this2.handicapUpdated();
+        }
+      }).then(function (response) {
+        if (response.status == 404) {
+          _this2.updateFail();
         }
       })["catch"](function (error) {
         console.log(error);
@@ -1971,6 +1977,14 @@ __webpack_require__.r(__webpack_exports__);
       this.updateSuccess = true;
       setTimeout(function () {
         _this3.updateSuccess = false;
+      }, 1000);
+    },
+    updateFail: function updateFail() {
+      var _this4 = this;
+
+      this.updateFailed = true;
+      setTimeout(function () {
+        _this4.updateFailed = false;
       }, 1000);
     }
   },
@@ -37670,6 +37684,10 @@ var render = function() {
       _vm._v(" "),
       _vm.updateSuccess
         ? _c("p", [_vm._v(" Handicaps updated successfully")])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.updateFailed
+        ? _c("p", [_vm._v(" Handicaps NOT updated please try again later!")])
         : _vm._e()
     ],
     2
