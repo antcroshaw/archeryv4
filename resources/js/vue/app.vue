@@ -9,7 +9,9 @@ v-for="handicap in handicaps"
 @subtractOneToScore="decreaseScore"
 @updateHandicap="updateHandicap"
 
+
   ></display-handicaps>
+    <p v-if="updateSuccess"> Handicaps updated successfully</p>
 
 </div>
 </template>
@@ -20,7 +22,8 @@ import displayHandicaps from "../components/displayHandicaps";
 export default {
     data: function() {
         return {
-            handicaps: []
+            handicaps: [],
+            updateSuccess: false
         };
     },
   components: {
@@ -59,7 +62,8 @@ export default {
             })
                 .then( response=> {
                     if( response.status == 200 ) {
-                        this.$emit('handicapUpdated', updateHandicap);
+
+                       this.handicapUpdated();
 
                     }
                 })
@@ -67,6 +71,14 @@ export default {
                     console.log(error);
                 })
         },
+        handicapUpdated(){
+
+            this.updateSuccess = true;
+
+                setTimeout(() => {
+                    this.updateSuccess = false;
+                }, 1000 );
+        }
 
 
 
