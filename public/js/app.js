@@ -1957,17 +1957,15 @@ __webpack_require__.r(__webpack_exports__);
       var updateHandicap = this.handicaps.find(function (handicaps) {
         return handicaps.id === id;
       });
-      axios.put('api/handicap/' + updateHandicap.id, {
+      axios.put('api/handicaps/' + updateHandicap.id, {
         score: updateHandicap.score
       }).then(function (response) {
         if (response.status == 200) {
           _this2.handicapUpdated();
         }
-      }).then(function (response) {
-        if (response.status == 404) {
-          _this2.updateFail();
-        }
       })["catch"](function (error) {
+        _this2.updateFail();
+
         console.log(error);
       });
     },

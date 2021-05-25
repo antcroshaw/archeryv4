@@ -23,6 +23,7 @@
     <body class="antialiased">
        <div id="app">
       <app></app>
+           <a href="{{ route('home') }}">Home</a>
        </div>
     </body>
     <script src="{{ mix('js/app.js') }}"></script>
