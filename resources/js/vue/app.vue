@@ -4,10 +4,12 @@ v-for="handicap in handicaps"
 :key="handicap.id"
 :id="handicap.id"
 :score="handicap.score"
+:handicapChanged="handicapChanged"
 
 @addOneToScore="increaseScore"
 @subtractOneToScore="decreaseScore"
 @updateHandicap="updateHandicap"
+
 
 
   ></display-handicaps>
@@ -24,8 +26,10 @@ export default {
     data: function() {
         return {
             handicaps: [],
+            handicapsUpdated: [],
             updateSuccess: false,
-            updateFailed: false
+            updateFailed: false,
+
         };
     },
   components: {
@@ -46,13 +50,17 @@ export default {
           const handicapToIncrease = this.handicaps.find(
               (handicaps) => handicaps.id === id
           );
-          handicapToIncrease.score = handicapToIncrease.score + 1;
+            handicapToIncrease.score = handicapToIncrease.score + 1;
+            if(!this.handicapsUpdated.includes(handicapToIncrease.id)) {
+             this.handicapsUpdated.push(handicapToIncrease.id);}
         },
         decreaseScore(id){
             const handicapToDecrease = this.handicaps.find(
                 (handicaps) => handicaps.id === id
             );
             handicapToDecrease.score = handicapToDecrease.score - 1;
+            if(!this.handicapsUpdated.includes(handicapToDecrease.id)) {
+            this.handicapsUpdated.push(handicapToDecrease.id);}
         },
         updateHandicap(id){
             const updateHandicap = this.handicaps.find(

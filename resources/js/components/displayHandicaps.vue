@@ -28,10 +28,12 @@ props: {
 },
     methods: {
          increaseScore(){
-            this.$emit('addOneToScore', this.id)
+            this.$emit('addOneToScore', this.id);
+
     },
         decreaseScore(){
-            this.$emit('subtractOneToScore', this.id)
+            this.$emit('subtractOneToScore', this.id);
+
         },
         updateHandicap(){
             this.$emit('updateHandicap',this.id)

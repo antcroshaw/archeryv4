@@ -1917,11 +1917,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       handicaps: [],
+      handicapsUpdated: [],
       updateSuccess: false,
       updateFailed: false
     };
@@ -1944,12 +1947,20 @@ __webpack_require__.r(__webpack_exports__);
         return handicaps.id === id;
       });
       handicapToIncrease.score = handicapToIncrease.score + 1;
+
+      if (!this.handicapsUpdated.includes(handicapToIncrease.id)) {
+        this.handicapsUpdated.push(handicapToIncrease.id);
+      }
     },
     decreaseScore: function decreaseScore(id) {
       var handicapToDecrease = this.handicaps.find(function (handicaps) {
         return handicaps.id === id;
       });
       handicapToDecrease.score = handicapToDecrease.score - 1;
+
+      if (!this.handicapsUpdated.includes(handicapToDecrease.id)) {
+        this.handicapsUpdated.push(handicapToDecrease.id);
+      }
     },
     updateHandicap: function updateHandicap(id) {
       var _this2 = this;
@@ -37671,7 +37682,11 @@ var render = function() {
       _vm._l(_vm.handicaps, function(handicap) {
         return _c("display-handicaps", {
           key: handicap.id,
-          attrs: { id: handicap.id, score: handicap.score },
+          attrs: {
+            id: handicap.id,
+            score: handicap.score,
+            handicapChanged: _vm.handicapChanged
+          },
           on: {
             addOneToScore: _vm.increaseScore,
             subtractOneToScore: _vm.decreaseScore,
