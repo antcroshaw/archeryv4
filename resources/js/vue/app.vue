@@ -4,7 +4,7 @@ v-for="handicap in handicaps"
 :key="handicap.id"
 :id="handicap.id"
 :score="handicap.score"
-:handicapChanged="handicapChanged"
+
 
 @addOneToScore="increaseScore"
 @subtractOneToScore="decreaseScore"
@@ -13,6 +13,7 @@ v-for="handicap in handicaps"
 
 
   ></display-handicaps>
+    <button type="button" @click="saveAllChanges">Save All Changes</button>
     <p v-if="updateSuccess"> Handicaps updated successfully</p>
     <p v-if="updateFailed"> Handicaps NOT updated please try again later!</p>
 
@@ -45,7 +46,13 @@ export default {
                     console.log(error);
                 })
         },
-
+        saveAllChanges(){
+          this.handicapsUpdated.forEach(
+               (id) => {
+                 this.updateHandicap(id);
+              }
+          )
+        },
         increaseScore(id){
           const handicapToIncrease = this.handicaps.find(
               (handicaps) => handicaps.id === id
@@ -63,6 +70,7 @@ export default {
             this.handicapsUpdated.push(handicapToDecrease.id);}
         },
         updateHandicap(id){
+            console.log('id=' + id);
             const updateHandicap = this.handicaps.find(
                 (handicaps) => handicaps.id === id
             );

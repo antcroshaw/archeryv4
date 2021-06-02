@@ -1919,6 +1919,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -1942,6 +1943,13 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
+    saveAllChanges: function saveAllChanges() {
+      var _this2 = this;
+
+      this.handicapsUpdated.forEach(function (id) {
+        _this2.updateHandicap(id);
+      });
+    },
     increaseScore: function increaseScore(id) {
       var handicapToIncrease = this.handicaps.find(function (handicaps) {
         return handicaps.id === id;
@@ -1963,8 +1971,9 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     updateHandicap: function updateHandicap(id) {
-      var _this2 = this;
+      var _this3 = this;
 
+      console.log('id=' + id);
       var updateHandicap = this.handicaps.find(function (handicaps) {
         return handicaps.id === id;
       });
@@ -1972,28 +1981,28 @@ __webpack_require__.r(__webpack_exports__);
         score: updateHandicap.score
       }).then(function (response) {
         if (response.status == 200) {
-          _this2.handicapUpdated();
+          _this3.handicapUpdated();
         }
       })["catch"](function (error) {
-        _this2.updateFail();
+        _this3.updateFail();
 
         console.log(error);
       });
     },
     handicapUpdated: function handicapUpdated() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.updateSuccess = true;
       setTimeout(function () {
-        _this3.updateSuccess = false;
+        _this4.updateSuccess = false;
       }, 1000);
     },
     updateFail: function updateFail() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.updateFailed = true;
       setTimeout(function () {
-        _this4.updateFailed = false;
+        _this5.updateFailed = false;
       }, 1000);
     }
   },
@@ -37682,11 +37691,7 @@ var render = function() {
       _vm._l(_vm.handicaps, function(handicap) {
         return _c("display-handicaps", {
           key: handicap.id,
-          attrs: {
-            id: handicap.id,
-            score: handicap.score,
-            handicapChanged: _vm.handicapChanged
-          },
+          attrs: { id: handicap.id, score: handicap.score },
           on: {
             addOneToScore: _vm.increaseScore,
             subtractOneToScore: _vm.decreaseScore,
@@ -37694,6 +37699,12 @@ var render = function() {
           }
         })
       }),
+      _vm._v(" "),
+      _c(
+        "button",
+        { attrs: { type: "button" }, on: { click: _vm.saveAllChanges } },
+        [_vm._v("Save All Changes")]
+      ),
       _vm._v(" "),
       _vm.updateSuccess
         ? _c("p", [_vm._v(" Handicaps updated successfully")])
