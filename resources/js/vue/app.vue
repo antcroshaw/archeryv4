@@ -13,7 +13,7 @@ v-for="handicap in handicaps"
 
 
   ></display-handicaps>
-    <button type="button" @click="saveAllChanges">Save All Changes</button>
+    <button :disabled="!isDisabled" type="button" @click="saveAllChanges">Save All Changes</button>
     <p v-if="updateSuccess"> Handicaps updated successfully</p>
     <p v-if="updateFailed"> Handicaps NOT updated please try again later!</p>
 
@@ -31,7 +31,14 @@ export default {
             updateSuccess: false,
             updateFailed: false,
 
+
         };
+    },
+    computed: {
+        isDisabled() {
+            // you can  check your form is filled or not here.
+            return this.handicapsUpdated.length > 0;
+        },
     },
   components: {
     displayHandicaps
@@ -51,7 +58,9 @@ export default {
                (id) => {
                  this.updateHandicap(id);
               }
+
           )
+            this.handicapsUpdated = [];
         },
         increaseScore(id){
           const handicapToIncrease = this.handicaps.find(
@@ -70,7 +79,7 @@ export default {
             this.handicapsUpdated.push(handicapToDecrease.id);}
         },
         updateHandicap(id){
-            console.log('id=' + id);
+
             const updateHandicap = this.handicaps.find(
                 (handicaps) => handicaps.id === id
             );

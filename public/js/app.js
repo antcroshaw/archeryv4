@@ -1930,6 +1930,12 @@ __webpack_require__.r(__webpack_exports__);
       updateFailed: false
     };
   },
+  computed: {
+    isDisabled: function isDisabled() {
+      // you can  check your form is filled or not here.
+      return this.handicapsUpdated.length > 0;
+    }
+  },
   components: {
     displayHandicaps: _components_displayHandicaps__WEBPACK_IMPORTED_MODULE_0__.default
   },
@@ -1949,6 +1955,7 @@ __webpack_require__.r(__webpack_exports__);
       this.handicapsUpdated.forEach(function (id) {
         _this2.updateHandicap(id);
       });
+      this.handicapsUpdated = [];
     },
     increaseScore: function increaseScore(id) {
       var handicapToIncrease = this.handicaps.find(function (handicaps) {
@@ -1973,7 +1980,6 @@ __webpack_require__.r(__webpack_exports__);
     updateHandicap: function updateHandicap(id) {
       var _this3 = this;
 
-      console.log('id=' + id);
       var updateHandicap = this.handicaps.find(function (handicaps) {
         return handicaps.id === id;
       });
@@ -37652,12 +37658,6 @@ var render = function() {
           }
         },
         [_vm._v("-")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { attrs: { type: "submit" }, on: { click: _vm.updateHandicap } },
-        [_vm._v(" Update Handicap")]
       )
     ])
   ])
@@ -37702,7 +37702,10 @@ var render = function() {
       _vm._v(" "),
       _c(
         "button",
-        { attrs: { type: "button" }, on: { click: _vm.saveAllChanges } },
+        {
+          attrs: { disabled: !_vm.isDisabled, type: "button" },
+          on: { click: _vm.saveAllChanges }
+        },
         [_vm._v("Save All Changes")]
       ),
       _vm._v(" "),
