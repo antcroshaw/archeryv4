@@ -4,6 +4,7 @@
       Score:  {{ score }}
        <button class="my_button" type="button" @click="increaseScore(id)">+</button>
        <button class="my_button" type="button" @click="decreaseScore(id)">-</button>
+       <button class="my-button btn-danger" type="button" @click="deleteHandicap(id)">Delete</button>
 
 
 
@@ -37,6 +38,10 @@ props: {
         },
         updateHandicap(){
             this.$emit('updateHandicap',this.id)
+        },
+
+        deleteHandicap(){
+             this.$emit('deleteHandicap',this.id)
         },
 
     }

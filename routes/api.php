@@ -23,5 +23,5 @@ Route::get('/handicaps',[HandicapController::class,'index']);
 Route::prefix('/handicaps')->group( function(){
     Route::post('/store',[HandicapController::class,'store']);
     Route::put('/{id}',[HandicapController::class,'update']);
-//    Route::delete('/{id}',[ItemController::class,'destroy']);
+    Route::delete('/{id}',[HandicapController::class,'destroy']);
 });

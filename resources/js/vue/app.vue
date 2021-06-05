@@ -9,6 +9,7 @@ v-for="handicap in handicaps"
 @addOneToScore="increaseScore"
 @subtractOneToScore="decreaseScore"
 @updateHandicap="updateHandicap"
+@deleteHandicap="deleteHandicap"
 
 
 
@@ -16,12 +17,17 @@ v-for="handicap in handicaps"
     <button :disabled="!isDisabled" type="button" @click="saveAllChanges">Save All Changes</button>
     <p v-if="updateSuccess"> Handicaps updated successfully</p>
     <p v-if="updateFailed"> Handicaps NOT updated please try again later!</p>
+<hr>
+    <add-handicap
+    @addScore="addScore"
+    ></add-handicap>
 
 </div>
 </template>
 
 <script>
 import displayHandicaps from "../components/displayHandicaps";
+import addHandicap from "../components/addHandicap";
 
 export default {
     data: function() {
@@ -41,9 +47,37 @@ export default {
         },
     },
   components: {
-    displayHandicaps
+        displayHandicaps,
+        addHandicap
+
   },
     methods: {
+        addScore(score){
+            axios.post('api/handicaps/store',{
+                score : score
+            })
+                .then( response => {
+                    if( response.status == 200 ) {
+                   this.getList()
+                    }
+                }).catch(error => {
+                this.updateFail();
+                console.log(error);
+            })
+
+        },
+    deleteHandicap(id) {
+        axios.delete('api/handicaps/' + id, )
+            .then( response => {
+                if( response.status == 200 ) {
+                    this.getList()
+                }
+            }).catch(error => {
+            this.getList()
+            console.log(error);
+        })
+
+    },
         getList(){
             axios.get('api/handicaps')
                 .then( response => {

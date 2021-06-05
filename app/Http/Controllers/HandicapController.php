@@ -13,11 +13,14 @@ class HandicapController extends Controller
 
     public function store(Request $request)
     {
+
         $newHandicap = new Handicap;
-        $newHandicap->score = $request->item['score'];
+        $newHandicap->score = $request->score;
+//
         $newHandicap->save();
 
-        return $newHandicap;
+        return redirect('/handicaps');
+
     }
 
     public function update(Request $request, $id) {
@@ -26,6 +29,15 @@ class HandicapController extends Controller
        $handicap->score = $request->score;
        $handicap->save();
 
+
+    }
+
+    public function destroy($id) {
+
+        $handicap = Handicap::find($id);
+        if($handicap) {
+            $handicap->delete();
+        }
 
     }
 }
