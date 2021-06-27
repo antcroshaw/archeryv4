@@ -15,6 +15,7 @@ class CreateHandicapsTable extends Migration
     {
         Schema::create('handicaps', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->integer('score');
             $table->timestamps();
         });
