@@ -1,8 +1,11 @@
 <template>
 <div>
     <form @submit.prevent="submitForm" class="form-group">
-        <label for="score">Add score to handicap</label>
-    <input type="text" class="score" name="score" v-model="score" id="score"/>
+
+       <p><label for="score">Add score to handicap</label>
+           <input type="text" class="score" name="score" v-model="score" id="score"/></p>
+       <p><label for="name">Name</label>
+           <input type="text" class="name" name="name" v-model="name" id="name"/></p>
     <button type="submit">Add score</button>
     </form>
 </div>
@@ -12,7 +15,8 @@
 export default {
     data: function(){
         return {
-            score: ''
+            score: '',
+            name: ''
         }
     },
 methods: {

@@ -1855,10 +1855,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      score: ''
+      score: '',
+      name: ''
     };
   },
   methods: {
@@ -37910,31 +37914,59 @@ var render = function() {
         }
       },
       [
-        _c("label", { attrs: { for: "score" } }, [
-          _vm._v("Add score to handicap")
+        _c("p", [
+          _c("label", { attrs: { for: "score" } }, [
+            _vm._v("Add score to handicap")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.score,
+                expression: "score"
+              }
+            ],
+            staticClass: "score",
+            attrs: { type: "text", name: "score", id: "score" },
+            domProps: { value: _vm.score },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.score = $event.target.value
+              }
+            }
+          })
         ]),
         _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.score,
-              expression: "score"
-            }
-          ],
-          staticClass: "score",
-          attrs: { type: "text", name: "score", id: "score" },
-          domProps: { value: _vm.score },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+        _c("p", [
+          _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.name,
+                expression: "name"
               }
-              _vm.score = $event.target.value
+            ],
+            staticClass: "name",
+            attrs: { type: "text", name: "name", id: "name" },
+            domProps: { value: _vm.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.name = $event.target.value
+              }
             }
-          }
-        }),
+          })
+        ]),
         _vm._v(" "),
         _c("button", { attrs: { type: "submit" } }, [_vm._v("Add score")])
       ]
@@ -37966,7 +37998,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("p", [
-      _vm._v("\n      Score:  " + _vm._s(_vm.score) + "\n       "),
+      _vm._v("\r\n      Score:  " + _vm._s(_vm.score) + "\r\n       "),
       _c(
         "button",
         {
