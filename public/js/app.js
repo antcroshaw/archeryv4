@@ -1867,8 +1867,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submitForm: function submitForm() {
-      this.$emit('addScore', this.score);
+      this.$emit('addScore', this.score, this.name);
       this.score = '';
+      this.name = '';
     }
   }
 });
@@ -2001,11 +2002,12 @@ __webpack_require__.r(__webpack_exports__);
     addHandicap: _components_addHandicap__WEBPACK_IMPORTED_MODULE_1__.default
   },
   methods: {
-    addScore: function addScore(score) {
+    addScore: function addScore(score, name) {
       var _this = this;
 
       axios.post('api/handicaps/store', {
-        score: score
+        score: score,
+        name: name
       }).then(function (response) {
         if (response.status == 200) {
           _this.getList();

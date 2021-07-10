@@ -52,9 +52,11 @@ export default {
 
   },
     methods: {
-        addScore(score){
+        addScore(score,name){
             axios.post('api/handicaps/store',{
-                score : score
+                score : score,
+                name : name
+
             })
                 .then( response => {
                     if( response.status == 200 ) {

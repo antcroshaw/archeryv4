@@ -16,7 +16,7 @@ class HandicapController extends Controller
 
         $newHandicap = new Handicap;
         $newHandicap->score = $request->score;
-        $newHandicap->score = $request->name;
+        $newHandicap->name = $request->name;
 //
         $newHandicap->save();
 

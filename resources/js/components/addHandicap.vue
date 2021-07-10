@@ -21,8 +21,9 @@ export default {
     },
 methods: {
     submitForm(){
-        this.$emit('addScore',this.score);
+        this.$emit('addScore',this.score,this.name);
         this.score = '';
+        this.name = '';
 
     }
 }
