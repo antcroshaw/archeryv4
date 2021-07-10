@@ -4,7 +4,7 @@ v-for="handicap in handicaps"
 :key="handicap.id"
 :id="handicap.id"
 :score="handicap.score"
-
+:name="handicap.name"
 
 @addOneToScore="increaseScore"
 @subtractOneToScore="decreaseScore"

@@ -1902,6 +1902,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     id: {
@@ -1910,6 +1914,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     score: {
       type: Number,
+      required: true
+    },
+    name: {
+      type: String,
       required: true
     }
   },
@@ -37997,8 +38005,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("p", [_vm._v("\n        Name: " + _vm._s(_vm.name) + "\n    ")]),
+    _vm._v(" "),
     _c("p", [
-      _vm._v("\r\n      Score:  " + _vm._s(_vm.score) + "\r\n       "),
+      _vm._v("\n      Score:  " + _vm._s(_vm.score) + "\n       "),
       _c(
         "button",
         {
@@ -38072,7 +38082,11 @@ var render = function() {
       _vm._l(_vm.handicaps, function(handicap) {
         return _c("display-handicaps", {
           key: handicap.id,
-          attrs: { id: handicap.id, score: handicap.score },
+          attrs: {
+            id: handicap.id,
+            score: handicap.score,
+            name: handicap.name
+          },
           on: {
             addOneToScore: _vm.increaseScore,
             subtractOneToScore: _vm.decreaseScore,

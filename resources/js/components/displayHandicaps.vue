@@ -1,5 +1,8 @@
 <template>
 <div>
+    <p>
+        Name: {{ name }}
+    </p>
    <p>
       Score:  {{ score }}
        <button class="my_button" type="button" @click="increaseScore(id)">+</button>
@@ -9,6 +12,7 @@
 
 
    </p>
+
 
 
 </div>
@@ -25,6 +29,10 @@ props: {
         type: Number,
         required: true
     },
+    name: {
+        type: String,
+        required: true
+    }
 
 },
     methods: {
