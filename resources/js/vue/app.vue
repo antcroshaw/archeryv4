@@ -6,6 +6,7 @@ v-for="handicap in handicaps"
 :score="handicap.score"
 :name="handicap.name"
 
+
 @addOneToScore="increaseScore"
 @subtractOneToScore="decreaseScore"
 @updateHandicap="updateHandicap"
@@ -20,6 +21,7 @@ v-for="handicap in handicaps"
 <hr>
     <add-handicap
     @addScore="addScore"
+    :handicapList="handicapList"
     ></add-handicap>
 
 </div>
@@ -36,6 +38,7 @@ export default {
             handicapsUpdated: [],
             updateSuccess: false,
             updateFailed: false,
+            handicapList: []
 
 
         };
@@ -84,6 +87,15 @@ export default {
             axios.get('api/handicaps')
                 .then( response => {
                     this.handicaps = response.data
+                })
+                .catch( error => {
+                    console.log(error);
+                })
+        },
+        getHandicapList(){
+            axios.get('api/handicapList')
+                .then( response => {
+                    this.handicapList = response.data
                 })
                 .catch( error => {
                     console.log(error);
@@ -155,6 +167,7 @@ export default {
     },
     created(){
         this.getList();
+        this.getHandicapList();
 
     }
 }

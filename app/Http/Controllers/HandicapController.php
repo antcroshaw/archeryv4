@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Handicap;
+use App\Models\HandicapList;
 use Illuminate\Http\Request;
 
 class HandicapController extends Controller

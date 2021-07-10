@@ -1858,6 +1858,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1980,6 +1987,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1988,7 +1997,8 @@ __webpack_require__.r(__webpack_exports__);
       handicaps: [],
       handicapsUpdated: [],
       updateSuccess: false,
-      updateFailed: false
+      updateFailed: false,
+      handicapList: []
     };
   },
   computed: {
@@ -2040,11 +2050,20 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    saveAllChanges: function saveAllChanges() {
+    getHandicapList: function getHandicapList() {
       var _this4 = this;
 
+      axios.get('api/handicapList').then(function (response) {
+        _this4.handicapList = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    saveAllChanges: function saveAllChanges() {
+      var _this5 = this;
+
       this.handicapsUpdated.forEach(function (id) {
-        _this4.updateHandicap(id);
+        _this5.updateHandicap(id);
       });
       this.handicapsUpdated = [];
     },
@@ -2069,7 +2088,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     updateHandicap: function updateHandicap(id) {
-      var _this5 = this;
+      var _this6 = this;
 
       var updateHandicap = this.handicaps.find(function (handicaps) {
         return handicaps.id === id;
@@ -2078,33 +2097,34 @@ __webpack_require__.r(__webpack_exports__);
         score: updateHandicap.score
       }).then(function (response) {
         if (response.status == 200) {
-          _this5.handicapUpdated();
+          _this6.handicapUpdated();
         }
       })["catch"](function (error) {
-        _this5.updateFail();
+        _this6.updateFail();
 
         console.log(error);
       });
     },
     handicapUpdated: function handicapUpdated() {
-      var _this6 = this;
+      var _this7 = this;
 
       this.updateSuccess = true;
       setTimeout(function () {
-        _this6.updateSuccess = false;
+        _this7.updateSuccess = false;
       }, 1000);
     },
     updateFail: function updateFail() {
-      var _this7 = this;
+      var _this8 = this;
 
       this.updateFailed = true;
       setTimeout(function () {
-        _this7.updateFailed = false;
+        _this8.updateFailed = false;
       }, 1000);
     }
   },
   created: function created() {
     this.getList();
+    this.getHandicapList();
   }
 });
 
@@ -37953,29 +37973,46 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("p", [
-          _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.name,
-                expression: "name"
-              }
-            ],
-            staticClass: "name",
-            attrs: { type: "text", name: "name", id: "name" },
-            domProps: { value: _vm.name },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.name,
+                  expression: "name"
                 }
-                _vm.name = $event.target.value
+              ],
+              attrs: { name: "name", id: "name" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.name = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
               }
-            }
-          })
+            },
+            [
+              _c("option", { attrs: { value: "York" } }, [_vm._v("York")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Western" } }, [
+                _vm._v("Western")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "American" } }, [
+                _vm._v("American")
+              ])
+            ]
+          )
         ]),
         _vm._v(" "),
         _c("button", { attrs: { type: "submit" } }, [_vm._v("Add score")])
@@ -38117,7 +38154,10 @@ var render = function() {
       _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
-      _c("add-handicap", { on: { addScore: _vm.addScore } })
+      _c("add-handicap", {
+        attrs: { handicapList: _vm.handicapList },
+        on: { addScore: _vm.addScore }
+      })
     ],
     2
   )
