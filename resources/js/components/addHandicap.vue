@@ -8,9 +8,7 @@
 <!--           <input type="text" class="name" name="name" v-model="name" id="name"/></p>-->
         <p>
             <select name="name" id="name" v-model="name">
-                <option value="York">York</option>
-                <option value="Western">Western</option>
-                <option value="American">American</option>
+               <option v-for="(item,index) in handicapList" :key="index" :value="item">{{ item }}</option>
             </select>
         </p>
     <button type="submit">Add score</button>
@@ -20,6 +18,7 @@
 
 <script>
 export default {
+    props: ['handicapList'],
     data: function(){
         return {
             score: '',

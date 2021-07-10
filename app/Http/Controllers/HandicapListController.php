@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 
 class HandicapListController extends Controller
 {
-    public function index(){
-        return HandicapList::all();
+    public function index(): \Illuminate\Support\Collection
+    {
+        return HandicapList::all()->pluck('name');
     }
 }

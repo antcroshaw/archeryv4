@@ -1863,9 +1863,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['handicapList'],
   data: function data() {
     return {
       score: '',
@@ -38001,17 +38000,12 @@ var render = function() {
                 }
               }
             },
-            [
-              _c("option", { attrs: { value: "York" } }, [_vm._v("York")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "Western" } }, [
-                _vm._v("Western")
-              ]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "American" } }, [
-                _vm._v("American")
+            _vm._l(_vm.handicapList, function(item, index) {
+              return _c("option", { key: index, domProps: { value: item } }, [
+                _vm._v(_vm._s(item))
               ])
-            ]
+            }),
+            0
           )
         ]),
         _vm._v(" "),
