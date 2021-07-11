@@ -1926,6 +1926,10 @@ __webpack_require__.r(__webpack_exports__);
     name: {
       type: String,
       required: true
+    },
+    activeHandicap: {
+      type: String,
+      required: true
     }
   },
   methods: {
@@ -1988,6 +1992,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1997,7 +2002,8 @@ __webpack_require__.r(__webpack_exports__);
       handicapsUpdated: [],
       updateSuccess: false,
       updateFailed: false,
-      handicapList: []
+      handicapList: [],
+      activeHandicap: ''
     };
   },
   computed: {
@@ -2026,6 +2032,9 @@ __webpack_require__.r(__webpack_exports__);
 
         console.log(error);
       });
+    },
+    setActiveHandicap: function setActiveHandicap(handicap) {
+      this.activeHandicap = handicap;
     },
     deleteHandicap: function deleteHandicap(id) {
       var _this2 = this;
@@ -2057,6 +2066,7 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+      this.activeHandicap = '';
     },
     saveAllChanges: function saveAllChanges() {
       var _this5 = this;
@@ -38038,7 +38048,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("p", [_vm._v("\n        Name: " + _vm._s(_vm.name) + "\n    ")]),
+    _c("p", [
+      _vm._v("\n        Name: " + _vm._s(_vm.activeHandicap) + "\n    ")
+    ]),
     _vm._v(" "),
     _c("p", [
       _vm._v("\n      Score:  " + _vm._s(_vm.score) + "\n       "),
@@ -38112,46 +38124,72 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._l(_vm.handicaps, function(handicap) {
-        return _c("display-handicaps", {
-          key: handicap.id,
-          attrs: {
-            id: handicap.id,
-            score: handicap.score,
-            name: handicap.name
+      _vm._l(_vm.handicapList, function(item, index) {
+        return _c(
+          "button",
+          {
+            key: index,
+            on: {
+              click: function($event) {
+                return _vm.setActiveHandicap(item)
+              }
+            }
           },
-          on: {
-            addOneToScore: _vm.increaseScore,
-            subtractOneToScore: _vm.decreaseScore,
-            updateHandicap: _vm.updateHandicap,
-            deleteHandicap: _vm.deleteHandicap
-          }
-        })
+          [_vm._v(" " + _vm._s(item))]
+        )
       }),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          attrs: { disabled: !_vm.isDisabled, type: "button" },
-          on: { click: _vm.saveAllChanges }
-        },
-        [_vm._v("Save All Changes")]
-      ),
-      _vm._v(" "),
-      _vm.updateSuccess
-        ? _c("p", [_vm._v(" Handicaps updated successfully")])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.updateFailed
-        ? _c("p", [_vm._v(" Handicaps NOT updated please try again later!")])
-        : _vm._e(),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("add-handicap", {
-        attrs: { handicapList: _vm.handicapList },
-        on: { addScore: _vm.addScore }
-      })
+      _vm.activeHandicap
+        ? _c(
+            "div",
+            [
+              _vm._l(_vm.handicaps, function(handicap) {
+                return _c("display-handicaps", {
+                  key: handicap.id,
+                  attrs: {
+                    id: handicap.id,
+                    score: handicap.score,
+                    name: handicap.name,
+                    activeHandicap: _vm.activeHandicap
+                  },
+                  on: {
+                    addOneToScore: _vm.increaseScore,
+                    subtractOneToScore: _vm.decreaseScore,
+                    updateHandicap: _vm.updateHandicap,
+                    deleteHandicap: _vm.deleteHandicap
+                  }
+                })
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  attrs: { disabled: !_vm.isDisabled, type: "button" },
+                  on: { click: _vm.saveAllChanges }
+                },
+                [_vm._v("Save All Changes")]
+              ),
+              _vm._v(" "),
+              _vm.updateSuccess
+                ? _c("p", [_vm._v(" Handicaps updated successfully")])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.updateFailed
+                ? _c("p", [
+                    _vm._v(" Handicaps NOT updated please try again later!")
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("add-handicap", {
+                attrs: { handicapList: _vm.handicapList },
+                on: { addScore: _vm.addScore }
+              })
+            ],
+            2
+          )
+        : _vm._e()
     ],
     2
   )

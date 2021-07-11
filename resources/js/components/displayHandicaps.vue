@@ -1,7 +1,7 @@
 <template>
 <div>
     <p>
-        Name: {{ name }}
+        Name: {{ activeHandicap }}
     </p>
    <p>
       Score:  {{ score }}
@@ -30,6 +30,10 @@ props: {
         required: true
     },
     name: {
+        type: String,
+        required: true
+    },
+    activeHandicap: {
         type: String,
         required: true
     }

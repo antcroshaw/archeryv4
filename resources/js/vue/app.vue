@@ -1,10 +1,12 @@
 <template><div>
-  <display-handicaps
+    <button v-for="(item,index) in handicapList" :key="index" @click = "setActiveHandicap(item)"> {{ item }}</button>
+ <div v-if="activeHandicap"><display-handicaps
 v-for="handicap in handicaps"
 :key="handicap.id"
 :id="handicap.id"
 :score="handicap.score"
 :name="handicap.name"
+:activeHandicap="activeHandicap"
 
 
 @addOneToScore="increaseScore"
@@ -12,9 +14,8 @@ v-for="handicap in handicaps"
 @updateHandicap="updateHandicap"
 @deleteHandicap="deleteHandicap"
 
-
-
   ></display-handicaps>
+
     <button :disabled="!isDisabled" type="button" @click="saveAllChanges">Save All Changes</button>
     <p v-if="updateSuccess"> Handicaps updated successfully</p>
     <p v-if="updateFailed"> Handicaps NOT updated please try again later!</p>
@@ -24,7 +25,7 @@ v-for="handicap in handicaps"
     :handicapList="handicapList"
     ></add-handicap>
 
-</div>
+ </div></div>
 </template>
 
 <script>
@@ -38,7 +39,8 @@ export default {
             handicapsUpdated: [],
             updateSuccess: false,
             updateFailed: false,
-            handicapList: []
+            handicapList: [],
+            activeHandicap: ''
 
 
         };
@@ -71,6 +73,9 @@ export default {
             })
 
         },
+        setActiveHandicap(handicap){
+           this.activeHandicap = handicap;
+        },
     deleteHandicap(id) {
         axios.delete('api/handicaps/' + id, )
             .then( response => {
@@ -99,7 +104,8 @@ export default {
                 })
                 .catch( error => {
                     console.log(error);
-                })
+                });
+            this.activeHandicap = '';
         },
         saveAllChanges(){
           this.handicapsUpdated.forEach(
