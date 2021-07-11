@@ -1859,23 +1859,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['handicapList'],
+  props: ['handicapList', 'activeHandicap'],
   data: function data() {
     return {
-      score: '',
-      name: ''
+      score: ''
     };
   },
   methods: {
     submitForm: function submitForm() {
-      this.$emit('addScore', this.score, this.name);
+      this.$emit('addScore', this.score, this.activeHandicap);
       this.score = '';
-      this.name = '';
     }
   }
 });
@@ -1893,6 +1887,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
 //
 //
 //
@@ -1963,6 +1958,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _components_displayHandicaps__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/displayHandicaps */ "./resources/js/components/displayHandicaps.vue");
 /* harmony import */ var _components_addHandicap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/addHandicap */ "./resources/js/components/addHandicap.vue");
+//
+//
+//
 //
 //
 //
@@ -37981,44 +37979,6 @@ var render = function() {
           })
         ]),
         _vm._v(" "),
-        _c("p", [
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.name,
-                  expression: "name"
-                }
-              ],
-              attrs: { name: "name", id: "name" },
-              on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.name = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                }
-              }
-            },
-            _vm._l(_vm.handicapList, function(item, index) {
-              return _c("option", { key: index, domProps: { value: item } }, [
-                _vm._v(_vm._s(item))
-              ])
-            }),
-            0
-          )
-        ]),
-        _vm._v(" "),
         _c("button", { attrs: { type: "submit" } }, [_vm._v("Add score")])
       ]
     )
@@ -38048,54 +38008,58 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("p", [
-      _vm._v("\n        Name: " + _vm._s(_vm.activeHandicap) + "\n    ")
-    ]),
-    _vm._v(" "),
-    _c("p", [
-      _vm._v("\n      Score:  " + _vm._s(_vm.score) + "\n       "),
-      _c(
-        "button",
-        {
-          staticClass: "my_button",
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.increaseScore(_vm.id)
-            }
-          }
-        },
-        [_vm._v("+")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "my_button",
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.decreaseScore(_vm.id)
-            }
-          }
-        },
-        [_vm._v("-")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "my-button btn-danger",
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.deleteHandicap(_vm.id)
-            }
-          }
-        },
-        [_vm._v("Delete")]
-      )
-    ])
+    _vm.name === _vm.activeHandicap
+      ? _c("div", [
+          _c("p", [
+            _vm._v("\n        Name: " + _vm._s(_vm.activeHandicap) + "\n    ")
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v("\n      Score:  " + _vm._s(_vm.score) + "\n       "),
+            _c(
+              "button",
+              {
+                staticClass: "my_button",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.increaseScore(_vm.id)
+                  }
+                }
+              },
+              [_vm._v("+")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "my_button",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.decreaseScore(_vm.id)
+                  }
+                }
+              },
+              [_vm._v("-")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "my-button btn-danger",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.deleteHandicap(_vm.id)
+                  }
+                }
+              },
+              [_vm._v("Delete")]
+            )
+          ])
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -38124,6 +38088,18 @@ var render = function() {
   return _c(
     "div",
     [
+      _c(
+        "button",
+        {
+          on: {
+            click: function($event) {
+              _vm.activeHandicap = ""
+            }
+          }
+        },
+        [_vm._v("Home")]
+      ),
+      _vm._v(" "),
       _vm._l(_vm.handicapList, function(item, index) {
         return _c(
           "button",
@@ -38183,7 +38159,10 @@ var render = function() {
               _c("hr"),
               _vm._v(" "),
               _c("add-handicap", {
-                attrs: { handicapList: _vm.handicapList },
+                attrs: {
+                  handicapList: _vm.handicapList,
+                  activeHandicap: _vm.activeHandicap
+                },
                 on: { addScore: _vm.addScore }
               })
             ],

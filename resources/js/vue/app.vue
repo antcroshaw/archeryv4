@@ -1,6 +1,8 @@
 <template><div>
+    <button @click="activeHandicap = ''">Home</button>
     <button v-for="(item,index) in handicapList" :key="index" @click = "setActiveHandicap(item)"> {{ item }}</button>
- <div v-if="activeHandicap"><display-handicaps
+ <div v-if="activeHandicap">
+     <display-handicaps
 v-for="handicap in handicaps"
 :key="handicap.id"
 :id="handicap.id"
@@ -23,6 +25,7 @@ v-for="handicap in handicaps"
     <add-handicap
     @addScore="addScore"
     :handicapList="handicapList"
+    :activeHandicap="activeHandicap"
     ></add-handicap>
 
  </div></div>

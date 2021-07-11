@@ -22,7 +22,7 @@
     </head>
     <body class="antialiased">
        <div id="app">
-           <a href="{{ route('home') }}">Home</a>
+
       <app></app>
 
        </div>

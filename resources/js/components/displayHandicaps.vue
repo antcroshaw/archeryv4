@@ -1,5 +1,6 @@
 <template>
 <div>
+    <div v-if="name === activeHandicap">
     <p>
         Name: {{ activeHandicap }}
     </p>
@@ -11,7 +12,7 @@
 
 
 
-   </p>
+   </p></div>
 
 
 
