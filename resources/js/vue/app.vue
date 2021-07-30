@@ -2,8 +2,10 @@
     <button @click="activeHandicap = ''">Home</button>
     <button v-for="(item,index) in handicapList" :key="index" @click = "setActiveHandicap(item)"> {{ item }}</button>
  <div v-if="activeHandicap">
+     <router-link
+         :to="{ name: 'home'}"></router-link>
      <display-handicaps
-v-for="handicap in handicaps"
+v-for="(handicap) in handicaps"
 :key="handicap.id"
 :id="handicap.id"
 :score="handicap.score"

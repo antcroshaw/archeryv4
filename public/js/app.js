@@ -1991,6 +1991,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -38015,7 +38017,13 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("p", [
-            _vm._v("\n      Score:  " + _vm._s(_vm.score) + "\n       "),
+            _vm._v(
+              "\n    Handicap: " +
+                _vm._s(_vm.id) +
+                " | Score:  " +
+                _vm._s(_vm.score) +
+                "\n       "
+            ),
             _c(
               "button",
               {
@@ -38119,6 +38127,8 @@ var render = function() {
         ? _c(
             "div",
             [
+              _c("router-link", { attrs: { to: { name: "home" } } }),
+              _vm._v(" "),
               _vm._l(_vm.handicaps, function(handicap) {
                 return _c("display-handicaps", {
                   key: handicap.id,
