@@ -1,13 +1,15 @@
+import { createApp } from 'vue'
+import router from './router/index.js'
+import store from './store/index.js'
+import App from './App.vue'
+import BaseButton from './components/ui/BaseButton'
+import BaseBadge from './components/ui/BaseBadge'
+import BaseCard from './components/ui/BaseCard'
+const app = createApp(App)
 
-require('./bootstrap');
-
-import Vue from 'vue';
-import App from './vue/app';
-
-
-
-const app = new Vue({
-    el: '#app',
-    components: { App }
-});
-
+app.use(router)
+app.use(store)
+app.component('base-card', BaseCard)
+app.component('base-button', BaseButton)
+app.component('base-badge', BaseBadge)
+app.mount('#app')
