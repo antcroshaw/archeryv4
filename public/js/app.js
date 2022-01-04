@@ -17498,6 +17498,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    redirect: function redirect() {
+      this.$router.push('Home');
+    },
     addHandicapName: function addHandicapName() {
       this.formIsValid = true;
 

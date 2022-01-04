@@ -43,6 +43,9 @@ export default {
     }
   },
   methods: {
+      redirect(){
+          this.$router.push('Home')
+      },
     addHandicapName () {
       this.formIsValid = true
       if (this.newHandicapName === '') {

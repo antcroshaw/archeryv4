@@ -9,6 +9,6 @@
 </head>
 <body>
 <h1>Home page</h1>
-<a href="{{ route('handicaps') }}">Handicaps</a>
+<a href="{{ route('categories') }}">Handicaps</a>
 </body>
 </html>
