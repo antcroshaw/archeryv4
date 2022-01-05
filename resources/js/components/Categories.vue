@@ -27,7 +27,15 @@ export default {
     categories () {
       return this.$store.getters['handicaps/categories']
     }
-  }
+  },
+  created() {
+      this.loadCategories()
+  },
+    methods: {
+      loadCategories(){
+          this.$store.dispatch('handicaps/loadCategories')
+      }
+    }
 }
 </script>
 <style scoped>

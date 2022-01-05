@@ -5,25 +5,15 @@ export default {
   namespaced: true,
   state () {
     return {
-      categories: [
-        {
-          id: 1,
-          name: 'GNAS Outdoor'
-        },
-        {
-          id: 2,
-          name: 'GNAS Indoor'
-        }
-      ],
       handicaps: [
         {
-          categoryId: '1',
+          categoryId: '0',
           id: '1',
           name: 'York',
           scores: [20, 23, 25]
         },
         {
-          categoryId: '1',
+          categoryId: '0',
           id: '2',
           name: 'Western I',
           scores: [30, 35, 36]
@@ -35,13 +25,13 @@ export default {
           scores: [35, 38, 39]
         },
         {
-          categoryId: '2',
+          categoryId: '1',
           id: '1',
           name: 'Bristol',
           scores: [35, 38, 39]
         },
         {
-          categoryId: '2',
+          categoryId: '1',
           id: '2',
           name: 'Bristol II',
           scores: [35, 38, 39]

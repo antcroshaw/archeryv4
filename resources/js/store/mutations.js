@@ -23,5 +23,19 @@ export default {
     const id = String(sorted.length + 1)
     const newHandicap = { id: id, categoryId: categoryId, name: payload.name, scores: [1, 1, 1] }
     return state.handicaps.push(newHandicap)
-  }
+  },
+ setCategories (state,payload) {
+     const categories = [];
+
+     for (const key in payload) {
+         const category = {
+             id: key,
+             name: payload[key].name
+         };
+         categories.push(category);
+     }
+     console.log(categories)
+     state.categories = categories
+ }
+
 }
