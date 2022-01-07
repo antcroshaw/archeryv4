@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export default {
   addOneToScore (context, payload) {
     context.commit('addOneToScore', payload)
@@ -11,7 +13,7 @@ export default {
   deleteHandicap (context, payload) {
     context.commit('deleteHandicap', payload)
   },
-  addNewHandicapName (context) {
+  addNewHandicapName (context,payload) {
     context.commit('addNewHandicapName', payload)
   },
   loadCategories(context) {
@@ -26,4 +28,19 @@ export default {
           })
 
 
-  }}
+  },
+    loadHandicaps(context) {
+        const axios = require('axios');
+        axios.get(`api/handicapList`)
+            .then(response => {
+                this.result = response.data
+                context.commit('setHandicapList', this.result)
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
+
+    },
+
+}

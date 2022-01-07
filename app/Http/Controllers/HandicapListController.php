@@ -9,6 +9,14 @@ class HandicapListController extends Controller
 {
     public function index(): \Illuminate\Support\Collection
     {
-        return HandicapList::all()->pluck('name');
+        return HandicapList::all();
+    }
+
+    public function store(Request $request)
+    {
+        $newHandicapName = new HandicapList;
+        $newHandicapName->name = $request->name;
+        $newHandicapName->categoryId = $request->categoryId;
+        $newHandicapName->save();
     }
 }

@@ -30,10 +30,18 @@ export default {
   },
   created() {
       this.loadCategories()
+      this.loadHandicaps()
+
   },
     methods: {
+      loadScores(name){
+            this.$store.dispatch('handicaps/loadScores', name)
+        },
       loadCategories(){
           this.$store.dispatch('handicaps/loadCategories')
+      },
+      loadHandicaps(){
+          this.$store.dispatch('handicaps/loadHandicaps')
       }
     }
 }

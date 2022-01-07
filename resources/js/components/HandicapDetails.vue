@@ -20,7 +20,7 @@
       </tr>
     </table>
     <div class="form-group" v-if="dialogIsVisible">
-      <form @submit.prevent="submitForm">
+      <form @submit.prevent="submitForm" method="post" type="application/json">
         <label for="addHandicap">Add Handicap: </label>
         <input class="text" name="addHandicap" id="addHandicap" v-model="newHandicap.value"/>
         <button type="submit" @click="addHandicap(name)">Add</button>
@@ -68,7 +68,7 @@ export default {
     }
   },
   methods: {
-    increaseScore (index, name) {
+      increaseScore (index, name) {
       this.payload.name = name
       this.payload.index = index
       this.$store.dispatch('handicaps/addOneToScore', this.payload)
@@ -101,7 +101,7 @@ export default {
     },
     hideDialog () {
       this.dialogIsVisible = false
-    }
+    },
   }
 }
 </script>

@@ -19443,10 +19443,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.loadCategories();
+    this.loadHandicaps();
   },
   methods: {
+    loadScores: function loadScores(name) {
+      this.$store.dispatch('handicaps/loadScores', name);
+    },
     loadCategories: function loadCategories() {
       this.$store.dispatch('handicaps/loadCategories');
+    },
+    loadHandicaps: function loadHandicaps() {
+      this.$store.dispatch('handicaps/loadHandicaps');
     }
   }
 });
@@ -19585,8 +19592,9 @@ __webpack_require__.r(__webpack_exports__);
         name: this.newHandicapName,
         id: this.id
       };
+      console.log(payload);
       this.$store.dispatch('handicaps/addNewHandicapName', payload);
-      this.newHandicapName = '';
+      this.$router.replace('/categories');
     }
   }
 });
@@ -19923,7 +19931,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       ))]), $data.dialogIsVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
         onSubmit: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
           return _ctx.submitForm && _ctx.submitForm.apply(_ctx, arguments);
-        }, ["prevent"]))
+        }, ["prevent"])),
+        method: "post",
+        type: "application/json"
       }, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         "class": "text",
         name: "addHandicap",
@@ -20268,6 +20278,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   addOneToScore: function addOneToScore(context, payload) {
     context.commit('addOneToScore', payload);
@@ -20281,7 +20294,7 @@ __webpack_require__.r(__webpack_exports__);
   deleteHandicap: function deleteHandicap(context, payload) {
     context.commit('deleteHandicap', payload);
   },
-  addNewHandicapName: function addNewHandicapName(context) {
+  addNewHandicapName: function addNewHandicapName(context, payload) {
     context.commit('addNewHandicapName', payload);
   },
   loadCategories: function loadCategories(context) {
@@ -20292,6 +20305,18 @@ __webpack_require__.r(__webpack_exports__);
     axios.get("api/categories").then(function (response) {
       _this.result = response.data;
       context.commit('setCategories', _this.result);
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  },
+  loadHandicaps: function loadHandicaps(context) {
+    var _this2 = this;
+
+    var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+    axios.get("api/handicapList").then(function (response) {
+      _this2.result = response.data;
+      context.commit('setHandicapList', _this2.result);
     })["catch"](function (error) {
       console.log(error);
     });
@@ -20356,34 +20381,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   namespaced: true,
   state: function state() {
-    return {
-      handicaps: [{
-        categoryId: '0',
-        id: '1',
-        name: 'York',
-        scores: [20, 23, 25]
-      }, {
-        categoryId: '0',
-        id: '2',
-        name: 'Western I',
-        scores: [30, 35, 36]
-      }, {
-        categoryId: '1',
-        id: '3',
-        name: 'Western Short',
-        scores: [35, 38, 39]
-      }, {
-        categoryId: '1',
-        id: '1',
-        name: 'Bristol',
-        scores: [35, 38, 39]
-      }, {
-        categoryId: '1',
-        id: '2',
-        name: 'Bristol II',
-        scores: [35, 38, 39]
-      }]
-    };
+    return {};
   },
   mutations: _mutations_js__WEBPACK_IMPORTED_MODULE_1__.default,
   actions: _actions_js__WEBPACK_IMPORTED_MODULE_0__.default,
@@ -20408,7 +20406,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var store = (0,vuex__WEBPACK_IMPORTED_MODULE_1__.createStore)({
-  state: function state() {},
+  state: function state() {
+    return {
+      lastFetch: null
+    };
+  },
   modules: {
     handicaps: _handicaps_js__WEBPACK_IMPORTED_MODULE_0__.default
   }
@@ -20428,6 +20430,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   addOneToScore: function addOneToScore(state, payload) {
     var item = state.handicaps.find(function (item) {
@@ -20442,10 +20447,18 @@ __webpack_require__.r(__webpack_exports__);
     return item.scores[payload.index]--;
   },
   addNewHandicap: function addNewHandicap(state, newHandicap) {
+    var _this = this;
+
     var item = state.handicaps.find(function (item) {
       return item.name === newHandicap.name;
+    }); //axios request here with handicap name and new score
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/handicaps/store', {
+      name: newHandicap.name,
+      score: newHandicap.value
+    }).then(function (response) {
+      _this.dispatch('handicaps/loadHandicaps');
     });
-    return item.scores.push(newHandicap.value);
   },
   deleteHandicap: function deleteHandicap(state, payload) {
     var item = state.handicaps.find(function (item) {
@@ -20454,22 +20467,14 @@ __webpack_require__.r(__webpack_exports__);
     return item.scores.splice(payload.index, 1);
   },
   addNewHandicapName: function addNewHandicapName(state, payload) {
-    // first need to work out the max id, we need the id values from all the handicaps
-    var categoryId = payload.id;
-    var ids = state.handicaps.map(function (user) {
-      return state.handicaps.id;
+    var _this2 = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/handicapList', {
+      categoryId: payload.id,
+      name: payload.name
+    }).then(function (response) {
+      _this2.dispatch('handicaps/loadHandicaps');
     });
-    var sorted = ids.sort(function (a, b) {
-      return a - b;
-    });
-    var id = String(sorted.length + 1);
-    var newHandicap = {
-      id: id,
-      categoryId: categoryId,
-      name: payload.name,
-      scores: [1, 1, 1]
-    };
-    return state.handicaps.push(newHandicap);
   },
   setCategories: function setCategories(state, payload) {
     var categories = [];
@@ -20482,8 +20487,32 @@ __webpack_require__.r(__webpack_exports__);
       categories.push(category);
     }
 
-    console.log(categories);
     state.categories = categories;
+  },
+  setHandicapList: function setHandicapList(state, payload) {
+    var handicapList = [];
+
+    var _loop = function _loop(key) {
+      //this is where we need to add the scores for each name
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("api/handicapScores/".concat(payload[key].name)).then(function (response) {
+        payload[key].scores = response.data;
+        var handicapName = {
+          id: key,
+          categoryId: payload[key].categoryId.toString(),
+          name: payload[key].name,
+          scores: payload[key].scores
+        };
+        handicapList.push(handicapName);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    };
+
+    for (var key in payload) {
+      _loop(key);
+    }
+
+    state.handicaps = handicapList;
   }
 });
 

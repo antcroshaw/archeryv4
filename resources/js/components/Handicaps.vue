@@ -42,7 +42,7 @@ export default {
       formIsValid: true
     }
   },
-  methods: {
+    methods: {
       redirect(){
           this.$router.push('Home')
       },
@@ -56,8 +56,9 @@ export default {
         name: this.newHandicapName,
         id: this.id
       }
+      console.log(payload)
       this.$store.dispatch('handicaps/addNewHandicapName', payload)
-      this.newHandicapName = ''
+        this.$router.replace('/categories');
     }
   }
 }

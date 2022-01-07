@@ -17,16 +17,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::get('/handicaps',[HandicapController::class,'index']);
-Route::get('/handicapList',[HandicapListController::class,'index']);
 
-Route::get('/categories',[CategoryController::class,'index']);
 
 Route::prefix('/handicaps')->group( function(){
     Route::post('/store',[HandicapController::class,'store']);
     Route::put('/{id}',[HandicapController::class,'update']);
     Route::delete('/{id}',[HandicapController::class,'destroy']);
 });
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+Route::get('/handicapScores/{name}',[HandicapController::class,'getScores']);
+Route::get('/handicaps',[HandicapController::class,'index']);
+Route::get('/handicapList',[HandicapListController::class,'index']);
+Route::post('handicapList',[HandicapListController::class,'store']);
+
+
+Route::get('/categories',[CategoryController::class,'index']);
+

@@ -3,6 +3,9 @@ import handicapsModule from './handicaps.js';
 
 const store = createStore({
   state() {
+      return {
+          lastFetch: null
+      }
   },
   modules: {
     handicaps: handicapsModule

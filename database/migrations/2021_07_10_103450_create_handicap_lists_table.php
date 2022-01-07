@@ -15,6 +15,7 @@ class CreateHandicapListsTable extends Migration
     {
         Schema::create('handicap_lists', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('categoryId')->nullable();
             $table->string('name')->unique();
             $table->timestamps();
         });

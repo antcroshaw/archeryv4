@@ -23,6 +23,7 @@ class HandicapListFactory extends Factory
     {
 
         return [
+            'categoryId' => $this->faker->randomElement(['0','1']),
             'name' => $this->faker->unique()->randomElement(['York', 'American','Short','Western']),
         ];
     }
