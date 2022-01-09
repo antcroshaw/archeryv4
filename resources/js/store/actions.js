@@ -18,7 +18,7 @@ export default {
   },
   loadCategories(context) {
       const axios = require('axios');
-      axios.get(`api/categories`)
+      axios.get(`/api/categories`)
           .then(response => {
               this.result = response.data
               context.commit('setCategories', this.result)
@@ -31,7 +31,7 @@ export default {
   },
     loadHandicaps(context) {
         const axios = require('axios');
-        axios.get(`api/handicapList`)
+        axios.get(`/api/handicapList`)
             .then(response => {
                 this.result = response.data
                 context.commit('setHandicapList', this.result)

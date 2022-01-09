@@ -19480,7 +19480,6 @@ __webpack_require__.r(__webpack_exports__);
     BaseCard: _ui_BaseCard__WEBPACK_IMPORTED_MODULE_1__.default,
     BaseButton: _ui_BaseButton__WEBPACK_IMPORTED_MODULE_0__.default
   },
-  props: ['name'],
   data: function data() {
     return {
       // this is required as you cannot send more than one item of data in an action call
@@ -19498,11 +19497,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
-    handicapsById: function handicapsById() {
-      return this.$store.getters['handicaps/getHandicapById'];
-    },
     id: function id() {
       return this.$route.params.id;
+    },
+    name: function name() {
+      return this.$route.params.name;
+    },
+    handicapsById: function handicapsById() {
+      return this.$store.getters['handicaps/getHandicapById'];
     }
   },
   methods: {
@@ -19516,7 +19518,7 @@ __webpack_require__.r(__webpack_exports__);
       this.payload.index = index;
       this.$store.dispatch('handicaps/subtractOneFromScore', this.payload);
     },
-    addHandicap: function addHandicap(name) {
+    addHandicap: function addHandicap() {
       this.formIsValid = true;
 
       if (this.newHandicap.value < 1 || this.newHandicap.value === '') {
@@ -19524,7 +19526,8 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      this.newHandicap.name = name;
+      this.newHandicap.name = this.name;
+      this.newHandicap.id = this.id;
       this.$store.dispatch('handicaps/addNewHandicap', this.newHandicap);
       this.newHandicap.value = '';
     },
@@ -19568,6 +19571,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     id: function id() {
       return this.$route.params.id;
+    },
+    name: function name() {
+      return this.$route.params.name;
     }
   },
   data: function data() {
@@ -19594,7 +19600,7 @@ __webpack_require__.r(__webpack_exports__);
       };
       console.log(payload);
       this.$store.dispatch('handicaps/addNewHandicapName', payload);
-      this.$router.replace('/categories');
+      this.newHandicapName = ''; // this.$router.replace('/categories');
     }
   }
 });
@@ -19792,12 +19798,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       to: {
         name: 'handicaps',
         params: {
-          id: category.id
+          id: category.id,
+          name: category.name
         }
       }
     }, {
       "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-        return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.name), 1
+        return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Name: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.name) + " | ID: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.id), 1
         /* TEXT */
         )];
       }),
@@ -19946,7 +19953,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newHandicap.value]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
         type: "submit",
         onClick: _cache[2] || (_cache[2] = function ($event) {
-          return $options.addHandicap($props.name);
+          return $options.addHandicap($options.name);
         })
       }, "Add"), !$data.formIsValid ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_10, "Please enter a valid and non empty handicap")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 32
       /* HYDRATE_EVENTS */
@@ -20006,7 +20013,7 @@ var _hoisted_2 = {
 
 var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-    "for": "addHandicapName"
+    "for": "newHandicapName"
   }, "Add Handicap Name: ", -1
   /* HOISTED */
   );
@@ -20052,8 +20059,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, ["prevent"]))
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "class": "text",
-    name: "addHandicapName",
-    id: "addHandicapName",
+    name: "newHandicapName",
+    id: "newHandicapName",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $data.newHandicapName = $event;
     })
@@ -20302,7 +20309,7 @@ __webpack_require__.r(__webpack_exports__);
 
     var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
-    axios.get("api/categories").then(function (response) {
+    axios.get("/api/categories").then(function (response) {
       _this.result = response.data;
       context.commit('setCategories', _this.result);
     })["catch"](function (error) {
@@ -20314,7 +20321,7 @@ __webpack_require__.r(__webpack_exports__);
 
     var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
-    axios.get("api/handicapList").then(function (response) {
+    axios.get("/api/handicapList").then(function (response) {
       _this2.result = response.data;
       context.commit('setHandicapList', _this2.result);
     })["catch"](function (error) {
@@ -20381,7 +20388,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   namespaced: true,
   state: function state() {
-    return {};
+    return {
+      updated: null
+    };
   },
   mutations: _mutations_js__WEBPACK_IMPORTED_MODULE_1__.default,
   actions: _actions_js__WEBPACK_IMPORTED_MODULE_0__.default,
@@ -20447,8 +20456,6 @@ __webpack_require__.r(__webpack_exports__);
     return item.scores[payload.index]--;
   },
   addNewHandicap: function addNewHandicap(state, newHandicap) {
-    var _this = this;
-
     var item = state.handicaps.find(function (item) {
       return item.name === newHandicap.name;
     }); //axios request here with handicap name and new score
@@ -20456,9 +20463,10 @@ __webpack_require__.r(__webpack_exports__);
     axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/handicaps/store', {
       name: newHandicap.name,
       score: newHandicap.value
-    }).then(function (response) {
-      _this.dispatch('handicaps/loadHandicaps');
+    })["catch"](function (error) {
+      console.log(error);
     });
+    return item.scores.push(newHandicap.value);
   },
   deleteHandicap: function deleteHandicap(state, payload) {
     var item = state.handicaps.find(function (item) {
@@ -20467,13 +20475,27 @@ __webpack_require__.r(__webpack_exports__);
     return item.scores.splice(payload.index, 1);
   },
   addNewHandicapName: function addNewHandicapName(state, payload) {
-    var _this2 = this;
-
+    //update the state here first
+    var categoryId = payload.id;
+    var ids = state.handicaps.map(function (user) {
+      return state.handicaps.id;
+    });
+    var sorted = ids.sort(function (a, b) {
+      return a - b;
+    });
+    var id = String(sorted.length + 1);
+    var newHandicap = {
+      id: id,
+      categoryId: categoryId,
+      name: payload.name,
+      scores: [1, 1, 1]
+    };
+    state.handicaps.push(newHandicap);
     axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/handicapList', {
       categoryId: payload.id,
       name: payload.name
-    }).then(function (response) {
-      _this2.dispatch('handicaps/loadHandicaps');
+    })["catch"](function (error) {
+      console.log(error);
     });
   },
   setCategories: function setCategories(state, payload) {
@@ -20494,7 +20516,7 @@ __webpack_require__.r(__webpack_exports__);
 
     var _loop = function _loop(key) {
       //this is where we need to add the scores for each name
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get("api/handicapScores/".concat(payload[key].name)).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/handicapScores/".concat(payload[key].name)).then(function (response) {
         payload[key].scores = response.data;
         var handicapName = {
           id: key,

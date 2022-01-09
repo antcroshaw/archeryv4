@@ -13,8 +13,8 @@
   <router-view></router-view>
   <form @submit.prevent="submitForm">
     <div class="form-group">
-      <label for="addHandicapName">Add Handicap Name: </label>
-      <input class="text" name="addHandicapName" id="addHandicapName" v-model="newHandicapName"/>
+      <label for="newHandicapName">Add Handicap Name: </label>
+      <input class="text" name="newHandicapName" id="newHandicapName" v-model="newHandicapName"/>
       <button type="submit" @click="addHandicapName(newHandicapName)">Add</button>
       <p class="errors" v-if="!formIsValid">Please enter a valid and non-empty name</p>
 
@@ -33,6 +33,9 @@ export default {
     },
     id () {
       return this.$route.params.id
+    },
+    name() {
+        return this.$route.params.name
     }
 
   },
@@ -58,7 +61,8 @@ export default {
       }
       console.log(payload)
       this.$store.dispatch('handicaps/addNewHandicapName', payload)
-        this.$router.replace('/categories');
+      this.newHandicapName  = ''
+        // this.$router.replace('/categories');
     }
   }
 }

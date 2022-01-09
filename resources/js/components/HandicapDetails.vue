@@ -42,13 +42,12 @@ import BaseCard from './ui/BaseCard'
 
 export default {
   components: { BaseCard, BaseButton },
-  props: ['name'],
   data () {
     return {
       // this is required as you cannot send more than one item of data in an action call
       payload: {
         name: '',
-        index: null
+        index: null,
       },
       newHandicap: {
         value: '',
@@ -60,12 +59,16 @@ export default {
     }
   },
   computed: {
+      id () {
+          return this.$route.params.id
+      },
+      name() {
+          return this.$route.params.name
+      },
     handicapsById () {
       return this.$store.getters['handicaps/getHandicapById']
     },
-    id () {
-      return this.$route.params.id
-    }
+
   },
   methods: {
       increaseScore (index, name) {
@@ -78,15 +81,16 @@ export default {
       this.payload.index = index
       this.$store.dispatch('handicaps/subtractOneFromScore', this.payload)
     },
-    addHandicap (name) {
+    addHandicap () {
       this.formIsValid = true
       if (this.newHandicap.value < 1 || this.newHandicap.value === '') {
         this.formIsValid = false
         return
       }
-      this.newHandicap.name = name
+      this.newHandicap.name = this.name
+      this.newHandicap.id = this.id
       this.$store.dispatch('handicaps/addNewHandicap', this.newHandicap)
-      this.newHandicap.value = ''
+      this.newHandicap.value=''
     },
     deleteHandicap (index, name) {
       this.payload.name = name

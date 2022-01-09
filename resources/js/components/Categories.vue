@@ -4,9 +4,10 @@
     <router-link :to="{
      name: 'handicaps',
      params: {
-       id: category.id
+       id: category.id,
+       name: category.name
      }
-   }">{{ category.name }}</router-link>
+   }">Name: {{ category.name }} | ID: {{ category.id }}</router-link>
   </div>
   <router-view></router-view>
 <!--  <form @submit.prevent="submitForm">-->
