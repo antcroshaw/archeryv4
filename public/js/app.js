@@ -19482,15 +19482,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      // this is required as you cannot send more than one item of data in an action call
-      payload: {
-        name: '',
-        index: null
-      },
-      newHandicap: {
-        value: '',
-        name: ''
-      },
       animatedBlock: false,
       dialogIsVisible: false,
       formIsValid: true
@@ -19499,43 +19490,21 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     id: function id() {
       return this.$route.params.id;
-    },
-    name: function name() {
-      return this.$route.params.name;
-    },
-    handicapsById: function handicapsById() {
-      return this.$store.getters['handicaps/getHandicapById'];
     }
   },
   methods: {
-    increaseScore: function increaseScore(index, name) {
-      this.payload.name = name;
-      this.payload.index = index;
-      this.$store.dispatch('handicaps/addOneToScore', this.payload);
-    },
-    decreaseScore: function decreaseScore(index, name) {
-      this.payload.name = name;
-      this.payload.index = index;
-      this.$store.dispatch('handicaps/subtractOneFromScore', this.payload);
-    },
-    addHandicap: function addHandicap() {
-      this.formIsValid = true;
-
-      if (this.newHandicap.value < 1 || this.newHandicap.value === '') {
-        this.formIsValid = false;
-        return;
-      }
-
-      this.newHandicap.name = this.name;
-      this.newHandicap.id = this.id;
-      this.$store.dispatch('handicaps/addNewHandicap', this.newHandicap);
-      this.newHandicap.value = '';
-    },
-    deleteHandicap: function deleteHandicap(index, name) {
-      this.payload.name = name;
-      this.payload.index = index;
-      this.$store.dispatch('handicaps/deleteHandicap', this.payload);
-    },
+    // addHandicap () {
+    //   this.formIsValid = true
+    //   if (this.newHandicap.value < 1 || this.newHandicap.value === '') {
+    //     this.formIsValid = false
+    //     return
+    //   }
+    //   this.newHandicap.name = this.name
+    //   this.newHandicap.id = this.id
+    //   this.$store.dispatch('handicaps/addNewHandicap', this.newHandicap)
+    //   this.newHandicap.value=''
+    // },
+    //
     animateBlock: function animateBlock() {
       this.animatedBlock = true;
     },
@@ -19565,15 +19534,6 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     handicaps: function handicaps() {
       return this.$store.getters['handicaps/handicaps'];
-    },
-    handicapsByCategoryId: function handicapsByCategoryId() {
-      return this.$store.getters['handicaps/getHandicapByCategoryId'];
-    },
-    id: function id() {
-      return this.$route.params.id;
-    },
-    name: function name() {
-      return this.$route.params.name;
     }
   },
   data: function data() {
@@ -19585,22 +19545,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     redirect: function redirect() {
       this.$router.push('Home');
-    },
-    addHandicapName: function addHandicapName() {
-      this.formIsValid = true;
-
-      if (this.newHandicapName === '') {
-        this.formIsValid = false;
-        return;
-      }
-
-      var payload = {
-        name: this.newHandicapName,
-        id: this.id
-      };
-      console.log(payload);
-      this.$store.dispatch('handicaps/addNewHandicapName', payload);
-      this.newHandicapName = ''; // this.$router.replace('/categories');
     }
   }
 });
@@ -19850,18 +19794,33 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 var _hoisted_3 = {
   id: "scores"
 };
-var _hoisted_4 = {
-  id: "table-heading"
-};
-var _hoisted_5 = ["onClick"];
-var _hoisted_6 = ["onClick"];
-var _hoisted_7 = ["onClick"];
-var _hoisted_8 = {
+
+var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    id: "table-heading"
+  }, null, -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Handicap: ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Score: ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_7 = {
   key: 0,
   "class": "form-group"
 };
 
-var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "addHandicap"
   }, "Add Handicap: ", -1
@@ -19869,12 +19828,12 @@ var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_10 = {
+var _hoisted_9 = {
   key: 0,
   "class": "errors"
 };
 
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Back to Categories");
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Back to Categories");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_base_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("base-button");
@@ -19902,60 +19861,36 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         onClick: _cache[0] || (_cache[0] = function () {
           return $options.hideDialog && $options.hideDialog.apply($options, arguments);
         })
-      }, "Done")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.handicapsById($options.id).name), 1
-      /* TEXT */
-      ), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.handicapsById($options.id).scores, function (score, index) {
-        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
-          key: index
-        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Handicap: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(index + 1), 1
-        /* TEXT */
-        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Score: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(score), 1
-        /* TEXT */
-        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [$data.dialogIsVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
-          key: 0,
-          onClick: function onClick($event) {
-            return $options.increaseScore(index, $options.handicapsById($options.id).name);
-          }
-        }, "+ ", 8
-        /* PROPS */
-        , _hoisted_5)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.dialogIsVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
-          key: 1,
-          onClick: function onClick($event) {
-            return $options.decreaseScore(index, $options.handicapsById($options.id).name);
-          }
-        }, "-", 8
-        /* PROPS */
-        , _hoisted_6)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.dialogIsVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
-          key: 2,
-          onClick: function onClick($event) {
-            return $options.deleteHandicap(index, $options.handicapsById($options.id).name);
-          }
-        }, "Delete", 8
-        /* PROPS */
-        , _hoisted_7)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
-      }), 128
-      /* KEYED_FRAGMENT */
-      ))]), $data.dialogIsVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-        onSubmit: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      }, "Done")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_5, _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [$data.dialogIsVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+        key: 0,
+        onClick: _cache[1] || (_cache[1] = function () {})
+      }, "+ ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.dialogIsVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+        key: 1,
+        onClick: _cache[2] || (_cache[2] = function () {})
+      }, "-")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.dialogIsVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+        key: 2,
+        onClick: _cache[3] || (_cache[3] = function () {})
+      }, "Delete")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]), $data.dialogIsVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+        onSubmit: _cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
           return _ctx.submitForm && _ctx.submitForm.apply(_ctx, arguments);
         }, ["prevent"])),
         method: "post",
         type: "application/json"
-      }, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      }, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         "class": "text",
         name: "addHandicap",
         id: "addHandicap",
-        "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-          return $data.newHandicap.value = $event;
+        "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+          return _ctx.newHandicap.value = $event;
         })
       }, null, 512
       /* NEED_PATCH */
-      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newHandicap.value]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.newHandicap.value]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
         type: "submit",
-        onClick: _cache[2] || (_cache[2] = function ($event) {
-          return $options.addHandicap($options.name);
+        onClick: _cache[5] || (_cache[5] = function ($event) {
+          return _ctx.addHandicap(_ctx.name);
         })
-      }, "Add"), !$data.formIsValid ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_10, "Please enter a valid and non empty handicap")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 32
+      }, "Add"), !$data.formIsValid ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_9, "Please enter a valid and non empty handicap")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 32
       /* HYDRATE_EVENTS */
       )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
         to: {
@@ -19966,7 +19901,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [_hoisted_11];
+          return [_hoisted_10];
         }),
         _: 1
         /* STABLE */
@@ -20019,7 +19954,17 @@ var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_4 = {
+var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "text",
+    name: "newHandicapName",
+    id: "newHandicapName"
+  }, null, -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_5 = {
   key: 0,
   "class": "errors"
 };
@@ -20028,50 +19973,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [_hoisted_1, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.handicapsByCategoryId($options.id), function (handicap) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-      key: handicap.id
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-      to: {
-        name: 'HandicapDetails',
-        params: {
-          id: handicap.id,
-          name: handicap.name
-        }
-      }
-    }, {
-      "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-        return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(handicap.name), 1
-        /* TEXT */
-        )];
-      }),
-      _: 2
-      /* DYNAMIC */
-
-    }, 1032
-    /* PROPS, DYNAMIC_SLOTS */
-    , ["to"])]);
-  }), 128
-  /* KEYED_FRAGMENT */
-  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-    onSubmit: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: {
+      name: 'HandicapDetails',
+      params: {}
+    }
+  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+    onSubmit: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return _ctx.submitForm && _ctx.submitForm.apply(_ctx, arguments);
     }, ["prevent"]))
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "class": "text",
-    name: "newHandicapName",
-    id: "newHandicapName",
-    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return $data.newHandicapName = $event;
-    })
-  }, null, 512
-  /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newHandicapName]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "submit",
-    onClick: _cache[1] || (_cache[1] = function ($event) {
-      return $options.addHandicapName($data.newHandicapName);
-    })
-  }, "Add"), !$data.formIsValid ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_4, "Please enter a valid and non-empty name")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])], 32
+    onClick: _cache[0] || (_cache[0] = function () {})
+  }, "Add"), !$data.formIsValid ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_5, "Please enter a valid and non-empty name")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])], 32
   /* HYDRATE_EVENTS */
   )]);
 }
@@ -20347,23 +20261,12 @@ __webpack_require__.r(__webpack_exports__);
   handicaps: function handicaps(state) {
     return state.handicaps;
   },
-  getHandicapById: function getHandicapById(state) {
-    return function (id) {
-      return state.handicaps.find(function (handicaps) {
-        return handicaps.id === id;
-      });
-    };
-  },
   categories: function categories(state) {
     return state.categories;
-  },
-  getHandicapByCategoryId: function getHandicapByCategoryId(state) {
-    return function (id) {
-      return state.handicaps.filter(function (handicaps) {
-        return handicaps.categoryId === id;
-      });
-    };
-  }
+  } // getHandicapByCategoryId: (state) => (id) => {
+  //   return state.handicaps.filter(handicaps => handicaps.categoryId === id)
+  // }
+
 });
 
 /***/ }),
@@ -20443,61 +20346,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  addOneToScore: function addOneToScore(state, payload) {
-    var item = state.handicaps.find(function (item) {
-      return item.name === payload.name;
-    });
-    return item.scores[payload.index]++;
-  },
-  subtractOneFromScore: function subtractOneFromScore(state, payload) {
-    var item = state.handicaps.find(function (item) {
-      return item.name === payload.name;
-    });
-    return item.scores[payload.index]--;
-  },
-  addNewHandicap: function addNewHandicap(state, newHandicap) {
-    var item = state.handicaps.find(function (item) {
-      return item.name === newHandicap.name;
-    }); //axios request here with handicap name and new score
-
-    axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/handicaps/store', {
-      name: newHandicap.name,
-      score: newHandicap.value
-    })["catch"](function (error) {
-      console.log(error);
-    });
-    return item.scores.push(newHandicap.value);
-  },
-  deleteHandicap: function deleteHandicap(state, payload) {
-    var item = state.handicaps.find(function (item) {
-      return item.name === payload.name;
-    });
-    return item.scores.splice(payload.index, 1);
-  },
-  addNewHandicapName: function addNewHandicapName(state, payload) {
-    //update the state here first
-    var categoryId = payload.id;
-    var ids = state.handicaps.map(function (user) {
-      return state.handicaps.id;
-    });
-    var sorted = ids.sort(function (a, b) {
-      return a - b;
-    });
-    var id = String(sorted.length + 1);
-    var newHandicap = {
-      id: id,
-      categoryId: categoryId,
-      name: payload.name,
-      scores: [1, 1, 1]
-    };
-    state.handicaps.push(newHandicap);
-    axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/handicapList', {
-      categoryId: payload.id,
-      name: payload.name
-    })["catch"](function (error) {
-      console.log(error);
-    });
-  },
   setCategories: function setCategories(state, payload) {
     var categories = [];
 
@@ -20510,32 +20358,33 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     state.categories = categories;
-  },
-  setHandicapList: function setHandicapList(state, payload) {
-    var handicapList = [];
+  } // setHandicapList (state,payload) {
+  //     const handicapList = [];
+  //     for (const key in payload) {
+  //         //this is where we need to add the scores for each name
+  //         axios.get(`/api/handicapScores/${payload[key].name}`)
+  //             .then(response => {
+  //                 console.log(response.data)
+  //                 payload[key].scores = response.data
+  //                 const handicapName = {
+  //                     id: key,
+  //                     categoryId: payload[key].categoryId.toString(),
+  //                     name: payload[key].name,
+  //                     scores: payload[key].scores
+  //                 };
+  //                 console.log(handicapName)
+  //                 handicapList.push(handicapName);
+  //             })
+  //             .catch(error => {
+  //                 console.log(error);
+  //             })
+  //
+  //
+  //
+  //     }
+  //     state.handicaps = handicapList
+  // }
 
-    var _loop = function _loop(key) {
-      //this is where we need to add the scores for each name
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/handicapScores/".concat(payload[key].name)).then(function (response) {
-        payload[key].scores = response.data;
-        var handicapName = {
-          id: key,
-          categoryId: payload[key].categoryId.toString(),
-          name: payload[key].name,
-          scores: payload[key].scores
-        };
-        handicapList.push(handicapName);
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    };
-
-    for (var key in payload) {
-      _loop(key);
-    }
-
-    state.handicaps = handicapList;
-  }
 });
 
 /***/ }),

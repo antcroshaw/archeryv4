@@ -7,15 +7,15 @@
       <button @click="hideDialog" v-if="dialogIsVisible">Done</button>
     </p>
     <table id="scores">
-      <th id="table-heading">{{ handicapsById(id).name }}</th>
-      <tr v-for="(score,index) in handicapsById(id).scores" :key="index">
-        <td>Handicap: {{ index + 1 }}</td>
-        <td>Score: {{ score }}</td>
+      <th id="table-heading"></th>
+      <tr>
+        <td>Handicap: </td>
+        <td>Score: </td>
         <td>
-          <button @click="increaseScore(index,handicapsById(id).name)" v-if="dialogIsVisible">+
+          <button @click="" v-if="dialogIsVisible">+
           </button>
-          <button @click="decreaseScore(index,handicapsById(id).name)" v-if="dialogIsVisible">-</button>
-          <button @click="deleteHandicap(index,handicapsById(id).name)" v-if="dialogIsVisible">Delete</button>
+          <button @click="" v-if="dialogIsVisible">-</button>
+          <button @click="" v-if="dialogIsVisible">Delete</button>
         </td>
       </tr>
     </table>
@@ -44,15 +44,6 @@ export default {
   components: { BaseCard, BaseButton },
   data () {
     return {
-      // this is required as you cannot send more than one item of data in an action call
-      payload: {
-        name: '',
-        index: null,
-      },
-      newHandicap: {
-        value: '',
-        name: ''
-      },
       animatedBlock: false,
       dialogIsVisible: false,
       formIsValid: true
@@ -61,42 +52,22 @@ export default {
   computed: {
       id () {
           return this.$route.params.id
-      },
-      name() {
-          return this.$route.params.name
-      },
-    handicapsById () {
-      return this.$store.getters['handicaps/getHandicapById']
-    },
+      }
 
   },
   methods: {
-      increaseScore (index, name) {
-      this.payload.name = name
-      this.payload.index = index
-      this.$store.dispatch('handicaps/addOneToScore', this.payload)
-    },
-    decreaseScore (index, name) {
-      this.payload.name = name
-      this.payload.index = index
-      this.$store.dispatch('handicaps/subtractOneFromScore', this.payload)
-    },
-    addHandicap () {
-      this.formIsValid = true
-      if (this.newHandicap.value < 1 || this.newHandicap.value === '') {
-        this.formIsValid = false
-        return
-      }
-      this.newHandicap.name = this.name
-      this.newHandicap.id = this.id
-      this.$store.dispatch('handicaps/addNewHandicap', this.newHandicap)
-      this.newHandicap.value=''
-    },
-    deleteHandicap (index, name) {
-      this.payload.name = name
-      this.payload.index = index
-      this.$store.dispatch('handicaps/deleteHandicap', this.payload)
-    },
+    // addHandicap () {
+    //   this.formIsValid = true
+    //   if (this.newHandicap.value < 1 || this.newHandicap.value === '') {
+    //     this.formIsValid = false
+    //     return
+    //   }
+    //   this.newHandicap.name = this.name
+    //   this.newHandicap.id = this.id
+    //   this.$store.dispatch('handicaps/addNewHandicap', this.newHandicap)
+    //   this.newHandicap.value=''
+    // },
+    //
     animateBlock () {
       this.animatedBlock = true
     },

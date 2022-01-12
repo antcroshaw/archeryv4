@@ -14,7 +14,8 @@ class HandicapController extends Controller
 
     public function getScores($name): \Illuminate\Support\Collection
     {
-        return Handicap::all()->where('name', $name)->pluck('score');
+        return Handicap::all()->where('name', $name);
+
     }
 
     public function store(Request $request)
