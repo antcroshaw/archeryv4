@@ -23,6 +23,18 @@ export default {
             handicapList.push(handicap);
         }
         state.handicapList = handicapList
+    },
+    setHandicaps (state,payload) {
+        const handicaps = [];
+        for (const key in payload) {
+            const handicap = {
+                id: payload[key].id,
+                name: payload[key].name,
+                score: payload[key].score
+            };
+            handicaps.push(handicap);
+        }
+        state.handicaps = handicaps
     }
 
 }

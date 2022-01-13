@@ -42,5 +42,18 @@ export default {
 
 
     },
+    loadHandicaps(context) {
+        const axios = require('axios');
+        axios.get(`/api/handicaps`)
+            .then(response => {
+                this.result = response.data
+                context.commit('setHandicaps', this.result)
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
+
+    },
 
 }

@@ -32,6 +32,7 @@ export default {
   created() {
       this.loadCategories()
       this.loadHandicapList()
+      this.loadHandicaps()
     console.log(this.$store.state)
 
 
@@ -45,7 +46,10 @@ export default {
       },
        loadHandicapList(){
           this.$store.dispatch('handicaps/loadHandicapList')
-       }
+       },
+        loadHandicaps(){
+            this.$store.dispatch('handicaps/loadHandicaps')
+        }
     }
 }
 </script>
