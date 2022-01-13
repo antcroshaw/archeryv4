@@ -29,7 +29,7 @@ export default {
 
 
   },
-    loadHandicaps(context) {
+    loadHandicapList(context) {
         const axios = require('axios');
         axios.get(`/api/handicapList`)
             .then(response => {

@@ -12,31 +12,17 @@ export default {
      }
      state.categories = categories
  },
-    // setHandicapList (state,payload) {
-    //     const handicapList = [];
-    //     for (const key in payload) {
-    //         //this is where we need to add the scores for each name
-    //         axios.get(`/api/handicapScores/${payload[key].name}`)
-    //             .then(response => {
-    //                 console.log(response.data)
-    //                 payload[key].scores = response.data
-    //                 const handicapName = {
-    //                     id: key,
-    //                     categoryId: payload[key].categoryId.toString(),
-    //                     name: payload[key].name,
-    //                     scores: payload[key].scores
-    //                 };
-    //                 console.log(handicapName)
-    //                 handicapList.push(handicapName);
-    //             })
-    //             .catch(error => {
-    //                 console.log(error);
-    //             })
-    //
-    //
-    //
-    //     }
-    //     state.handicaps = handicapList
-    // }
+    setHandicapList (state,payload) {
+        const handicapList = [];
+        for (const key in payload) {
+            const handicap = {
+                id: payload[key].id,
+                categoryId: payload[key].categoryId,
+                name: payload[key].name
+            };
+            handicapList.push(handicap);
+        }
+        state.handicapList = handicapList
+    }
 
 }
