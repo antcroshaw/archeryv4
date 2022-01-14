@@ -4,8 +4,8 @@ export default {
   },
   categories (state) {
     return state.categories
+  },
+  handicapList(state) {
+    return state.handicapList
   }
-  // getHandicapByCategoryId: (state) => (id) => {
-  //   return state.handicaps.filter(handicaps => handicaps.categoryId === id)
-  // }
 }

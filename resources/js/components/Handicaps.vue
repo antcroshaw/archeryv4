@@ -1,13 +1,15 @@
 <template>
     <div>
 <h1>Handicaps</h1>
- <div>
-   <router-link :to="{
+        <div v-for="handicap in handicapList" :key="handicap.id">
+            <router-link :to="{
      name: 'HandicapDetails',
      params: {
+       id: handicap.id,
+       name: handicap.name
      }
-   }"></router-link>
- </div>
+   }">Name: {{ handicap.name }} | ID: {{ handicap.id }}</router-link>
+        </div>
   <router-view></router-view>
   <form @submit.prevent="submitForm">
     <div class="form-group">
@@ -23,9 +25,13 @@
 <script>
 export default {
   computed: {
-    handicaps () {
-      return this.$store.getters['handicaps/handicaps']
-    }
+    handicapList () {
+        let handicaps =  this.$store.getters['handicaps/handicapList']
+         return handicaps.filter(handicaps => handicaps.categoryId.toString() === this.id )
+    },
+      id () {
+          return this.$route.params.id
+      },
   },
   data () {
     return {
