@@ -5,7 +5,8 @@ export default {
   namespaced: true,
   state () {
     return {
-        updated: null
+        updated: null,
+        currentCategory: ''
     }
   },
   mutations,

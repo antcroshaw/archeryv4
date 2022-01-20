@@ -35,6 +35,10 @@ export default {
             handicaps.push(handicap);
         }
         state.handicaps = handicaps
+    },
+    setCategoryName(state, payload) {
+        console.log(payload)
+        state.currentCategory = payload
     }
 
 }

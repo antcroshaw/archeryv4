@@ -19495,6 +19495,23 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     id: function id() {
       return this.$route.params.id;
+    },
+    name: function name() {
+      return this.$route.params.name;
+    },
+    handicaps: function handicaps() {
+      var _this = this;
+
+      var handicaps = this.$store.getters['handicaps/handicaps'];
+      console.log(this.name);
+      var newHandicaps = handicaps.filter(function (handicaps) {
+        return handicaps.name === _this.name;
+      });
+      console.log(newHandicaps);
+      return newHandicaps;
+    },
+    currentCategory: function currentCategory() {
+      return this.$store.getters['handicaps/currentCategory'];
     }
   },
   methods: {
@@ -19547,6 +19564,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     id: function id() {
       return this.$route.params.id;
+    },
+    name: function name() {
+      return this.$route.params.name;
+    },
+    currentCategory: function currentCategory() {
+      return this.$store.getters['handicaps/currentCategory'];
     }
   },
   data: function data() {
@@ -19559,6 +19582,9 @@ __webpack_require__.r(__webpack_exports__);
     redirect: function redirect() {
       this.$router.push('Home');
     }
+  },
+  created: function created() {
+    this.$store.dispatch('handicaps/setCategoryName', this.name);
   }
 });
 
@@ -19816,24 +19842,12 @@ var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Handicap: ", -1
-  /* HOISTED */
-  );
-});
-
-var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Score: ", -1
-  /* HOISTED */
-  );
-});
-
-var _hoisted_7 = {
+var _hoisted_5 = {
   key: 0,
   "class": "form-group"
 };
 
-var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "addHandicap"
   }, "Add Handicap: ", -1
@@ -19841,12 +19855,12 @@ var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_9 = {
+var _hoisted_7 = {
   key: 0,
   "class": "errors"
 };
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Back to Categories");
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Back to Categories");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_base_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("base-button");
@@ -19874,22 +19888,32 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         onClick: _cache[0] || (_cache[0] = function () {
           return $options.hideDialog && $options.hideDialog.apply($options, arguments);
         })
-      }, "Done")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_5, _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [$data.dialogIsVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
-        key: 0,
-        onClick: _cache[1] || (_cache[1] = function () {})
-      }, "+ ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.dialogIsVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
-        key: 1,
-        onClick: _cache[2] || (_cache[2] = function () {})
-      }, "-")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.dialogIsVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
-        key: 2,
-        onClick: _cache[3] || (_cache[3] = function () {})
-      }, "Delete")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]), $data.dialogIsVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+      }, "Done")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_3, [_hoisted_4, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.handicaps, function (handicap, index) {
+        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
+          key: handicap.id
+        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Handicap: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(index + 1), 1
+        /* TEXT */
+        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Score: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(handicap.score), 1
+        /* TEXT */
+        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [$data.dialogIsVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+          key: 0,
+          onClick: _cache[1] || (_cache[1] = function () {})
+        }, "+ ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.dialogIsVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+          key: 1,
+          onClick: _cache[2] || (_cache[2] = function () {})
+        }, "-")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.dialogIsVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+          key: 2,
+          onClick: _cache[3] || (_cache[3] = function () {})
+        }, "Delete")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
+      }), 128
+      /* KEYED_FRAGMENT */
+      ))]), $data.dialogIsVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
         onSubmit: _cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
           return _ctx.submitForm && _ctx.submitForm.apply(_ctx, arguments);
         }, ["prevent"])),
         method: "post",
         type: "application/json"
-      }, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      }, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         "class": "text",
         name: "addHandicap",
         id: "addHandicap",
@@ -19901,9 +19925,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.newHandicap.value]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
         type: "submit",
         onClick: _cache[5] || (_cache[5] = function ($event) {
-          return _ctx.addHandicap(_ctx.name);
+          return _ctx.addHandicap($options.name);
         })
-      }, "Add"), !$data.formIsValid ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_9, "Please enter a valid and non empty handicap")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 32
+      }, "Add"), !$data.formIsValid ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_7, "Please enter a valid and non empty handicap")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 32
       /* HYDRATE_EVENTS */
       )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
         to: {
@@ -19914,7 +19938,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [_hoisted_10];
+          return [_hoisted_8];
         }),
         _: 1
         /* STABLE */
@@ -20286,6 +20310,9 @@ __webpack_require__.r(__webpack_exports__);
     })["catch"](function (error) {
       console.log(error);
     });
+  },
+  setCategoryName: function setCategoryName(context, payload) {
+    context.commit('setCategoryName', payload);
   }
 });
 
@@ -20311,6 +20338,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   handicapList: function handicapList(state) {
     return state.handicapList;
+  },
+  currentCategory: function currentCategory(state) {
+    return state.currentCategory;
+  },
+  currentHandicap: function currentHandicap(state) {
+    return state.currentHandicap;
   }
 });
 
@@ -20337,7 +20370,8 @@ __webpack_require__.r(__webpack_exports__);
   namespaced: true,
   state: function state() {
     return {
-      updated: null
+      updated: null,
+      currentCategory: ''
     };
   },
   mutations: _mutations_js__WEBPACK_IMPORTED_MODULE_1__.default,
@@ -20365,7 +20399,9 @@ __webpack_require__.r(__webpack_exports__);
 var store = (0,vuex__WEBPACK_IMPORTED_MODULE_1__.createStore)({
   state: function state() {
     return {
-      lastFetch: null
+      lastFetch: null,
+      currentCategory: '',
+      currentHandicap: ''
     };
   },
   modules: {
@@ -20431,6 +20467,10 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     state.handicaps = handicaps;
+  },
+  setCategoryName: function setCategoryName(state, payload) {
+    console.log(payload);
+    state.currentCategory = payload;
   }
 });
 
@@ -20501,7 +20541,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#scores[data-v-594f86cf] {\r\n  margin: 0 auto; /* or margin: 0 auto 0 auto */\r\n  text-align: center;\r\n  border: none;\n}\n#table-heading[data-v-594f86cf] {\r\n  text-align: center;\n}\n.errors[data-v-594f86cf] {\r\n  font-weight: bold;\r\n  color: red;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#scores[data-v-594f86cf] {\n  margin: 0 auto; /* or margin: 0 auto 0 auto */\n  text-align: center;\n  border: none;\n}\n#table-heading[data-v-594f86cf] {\n  text-align: center;\n}\n.errors[data-v-594f86cf] {\n  font-weight: bold;\n  color: red;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

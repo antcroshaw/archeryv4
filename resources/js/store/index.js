@@ -4,7 +4,9 @@ import handicapsModule from './handicaps.js';
 const store = createStore({
   state() {
       return {
-          lastFetch: null
+          lastFetch: null,
+          currentCategory: '',
+          currentHandicap: ''
       }
   },
   modules: {

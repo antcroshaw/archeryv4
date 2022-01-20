@@ -7,5 +7,11 @@ export default {
   },
   handicapList(state) {
     return state.handicapList
+  },
+  currentCategory(state) {
+      return state.currentCategory
+  },
+  currentHandicap(state) {
+      return state.currentHandicap
   }
 }

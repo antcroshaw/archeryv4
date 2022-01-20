@@ -56,4 +56,9 @@ export default {
 
     },
 
+    setCategoryName(context,payload){
+        context.commit('setCategoryName', payload)
+    }
+
+
 }

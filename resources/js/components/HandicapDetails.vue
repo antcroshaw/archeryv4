@@ -8,9 +8,9 @@
     </p>
     <table id="scores">
       <th id="table-heading"></th>
-      <tr>
-        <td>Handicap: </td>
-        <td>Score: </td>
+      <tr v-for="(handicap,index) in handicaps" :key="handicap.id">
+        <td>Handicap: {{ index + 1 }} </td>
+        <td>Score: {{ handicap.score }} </td>
         <td>
           <button @click="" v-if="dialogIsVisible">+
           </button>
@@ -52,8 +52,19 @@ export default {
   computed: {
       id () {
           return this.$route.params.id
+      },
+      name() {
+          return this.$route.params.name
+      },
+      handicaps (){
+          const handicaps = this.$store.getters['handicaps/handicaps']
+          console.log(this.name)
+           const newHandicaps = handicaps.filter(handicaps => handicaps.name === this.name)
+      console.log(newHandicaps)
+      return newHandicaps;},
+      currentCategory(){
+          return this.$store.getters['handicaps/currentCategory']
       }
-
   },
   methods: {
     // addHandicap () {

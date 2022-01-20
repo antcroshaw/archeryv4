@@ -6,7 +6,7 @@
      name: 'HandicapDetails',
      params: {
        id: handicap.id,
-       name: handicap.name
+       name: handicap.name,
      }
    }">Name: {{ handicap.name }} | ID: {{ handicap.id }}</router-link>
         </div>
@@ -32,6 +32,12 @@ export default {
       id () {
           return this.$route.params.id
       },
+      name() {
+        return this.$route.params.name
+      },
+      currentCategory(){
+          return this.$store.getters['handicaps/currentCategory']
+      }
   },
   data () {
     return {
@@ -43,7 +49,10 @@ export default {
       redirect(){
           this.$router.push('Home')
       }
-  }
+  },
+    created(){
+    this.$store.dispatch('handicaps/setCategoryName', this.name)
+    }
 }
 </script>
 <style scoped>
