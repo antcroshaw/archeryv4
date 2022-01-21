@@ -56,8 +56,8 @@ export default {
 
     },
 
-    setCategoryName(context,payload){
-        context.commit('setCategoryName', payload)
+    setCategoryId(context,payload){
+        context.commit('setCategoryId', payload)
     }
 
 

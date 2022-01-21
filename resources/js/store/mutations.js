@@ -36,9 +36,9 @@ export default {
         }
         state.handicaps = handicaps
     },
-    setCategoryName(state, payload) {
+    setCategoryId(state, payload) {
         console.log(payload)
-        state.currentCategory = payload
+        state.currentCategoryId = payload
     }
 
 }

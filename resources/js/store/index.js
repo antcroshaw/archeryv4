@@ -5,7 +5,7 @@ const store = createStore({
   state() {
       return {
           lastFetch: null,
-          currentCategory: '',
+          currentCategoryId: '',
           currentHandicap: ''
       }
   },

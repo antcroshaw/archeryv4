@@ -8,8 +8,8 @@ export default {
   handicapList(state) {
     return state.handicapList
   },
-  currentCategory(state) {
-      return state.currentCategory
+  currentCategoryId(state) {
+      return state.currentCategoryId
   },
   currentHandicap(state) {
       return state.currentHandicap

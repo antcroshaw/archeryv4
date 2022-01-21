@@ -30,13 +30,17 @@ export default {
          return handicaps.filter(handicaps => handicaps.categoryId.toString() === this.id )
     },
       id () {
-          return this.$route.params.id
+        if(this.$route.params.id){
+          return this.$route.params.id}
+        else {
+            return this.currentCategoryId()
+        }
       },
       name() {
         return this.$route.params.name
       },
-      currentCategory(){
-          return this.$store.getters['handicaps/currentCategory']
+      currentCategoryId(){
+          return this.$store.getters['handicaps/currentCategoryId']
       }
   },
   data () {
@@ -51,7 +55,8 @@ export default {
       }
   },
     created(){
-    this.$store.dispatch('handicaps/setCategoryName', this.name)
+    this.$store.dispatch('handicaps/setCategoryId', this.id)
+
     }
 }
 </script>
