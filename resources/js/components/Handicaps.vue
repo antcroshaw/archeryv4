@@ -26,15 +26,11 @@
 export default {
   computed: {
     handicapList () {
-        let handicaps =  this.$store.getters['handicaps/handicapList']
-         return handicaps.filter(handicaps => handicaps.categoryId.toString() === this.id )
-    },
-      id () {
-        if(this.$route.params.id){
-          return this.$route.params.id}
-        else {
-            return this.currentCategoryId()
-        }
+            let handicaps =  this.$store.getters['handicaps/handicapList']
+            return handicaps.filter(handicaps => handicaps.categoryId.toString() === this.id)
+        },
+      id() {
+          return this.$route.params.id
       },
       name() {
         return this.$route.params.name

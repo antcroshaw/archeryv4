@@ -28,10 +28,10 @@
       </form>
     </div>
     <router-link :to="{
-     name: 'categories',
+     name: 'handicaps',
      params: {
-     id: id
-     }}" >Back to Categories</router-link>
+     id: this.currentCategoryId
+     }}" >Back to Handicaps</router-link>
   </base-card>
     </div>
 </template>
@@ -62,8 +62,8 @@ export default {
            const newHandicaps = handicaps.filter(handicaps => handicaps.name === this.name)
       console.log(newHandicaps)
       return newHandicaps;},
-      currentCategory(){
-          return this.$store.getters['handicaps/currentCategory']
+      currentCategoryId(){
+          return this.$store.getters['handicaps/currentCategoryId']
       }
   },
   methods: {
